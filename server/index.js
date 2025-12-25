@@ -68,9 +68,6 @@ app.use("/api/articles", articleRoutes);
 // }
 
 
-app.get("/", (req, res) => {
-  res.send("Server is running");
-});
 
 app.use("/api/users", (req, res, next) => {
   console.log("User route hit", req.method, req.path);
