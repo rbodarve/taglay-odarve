@@ -13,7 +13,7 @@ function Navbar() {
         <nav>
             <div className="logo">
                 <img src={logo} alt="Logo" />
-                <span>Profile</span>
+                <span> PROJECT </span>
             </div>
             <ul>
                 <li>

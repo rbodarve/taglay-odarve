@@ -8,8 +8,7 @@ function NotFoundPage() {
         <p className="eyebrow">Error</p>
         <h1>Page not found.</h1>
         <p className="lead">
-          The link you followed to get here must be broken. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit.
+          The link you followed to get here must be broken. 
         </p>
         <div className="hero-actions">
           <Link to="/" className="button-link primary">

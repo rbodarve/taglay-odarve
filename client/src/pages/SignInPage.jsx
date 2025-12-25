@@ -32,14 +32,14 @@ const SignInPage = () => {
     return (
         <div className="auth-shell">
             <div className="auth-hero">
-                <div className="auth-hero-badge">The Pawradise Project</div>
+                <div className="auth-hero-badge">Personal Project</div>
                 <h1>Welcome back</h1>
                 <p className="muted">Sign in to manage users and articles.</p>
             </div>
 
             <div className="auth-card">
                 <div className="auth-card-header">
-                    <h2>Sign in</h2>
+                    <h2>Sign in</h2>s
                     <p className="muted">Use your email and password to continue.</p>
                 </div>
                 <form className="auth-form" onSubmit={handleLogin}>

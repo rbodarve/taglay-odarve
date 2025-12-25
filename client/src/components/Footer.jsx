@@ -12,7 +12,7 @@ function Footer() {
                 <div className="footer-section">
                     <h4>About</h4>
                     <p>
-                        Personal profile project of Renaire Odarve.
+                        Personal Project of Renaire Odarve.
                     </p>
                 </div>
                 <div className="footer-section">
