@@ -57,9 +57,10 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(root));
 
     // Catch-all for SPA routes
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(root, 'index.html'));
-    });
+   app.get('/:any(.*)', (req, res) => {
+      res.sendFile(path.join(root, 'index.html'));
+  });
+
 }
 
 
