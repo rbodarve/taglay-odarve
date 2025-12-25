@@ -12,18 +12,18 @@ function Footer() {
                 <div className="footer-section">
                     <h4>About</h4>
                     <p>
-                        We bring awareness to the lives of stray dogs and cats and inspire everyone to take small, meaningful actions.
+                        Personal profile project of Renaire Odarve.
                     </p>
                 </div>
                 <div className="footer-section">
                     <h4>Contact</h4>
-                    <p>Email: jannacofreros@gmail.com</p>
+                    <p>Email: rbodarve@gmail.com</p>
                     <p>Phone: 09**-***-****</p>
                 </div>
                 <div className="footer-section">
                     <h4>Follow Us</h4>
                     <div className="social-links">
-                        <a href="https://www.linkedin.com/in/janna-victoria-cofreros/" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.linkedin.com/in/renaire-odarve/" target="_blank" rel="noopener noreferrer">
                             <FontAwesomeIcon icon={faLinkedin} />
                         </a>
                         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
@@ -36,7 +36,7 @@ function Footer() {
                 </div>
             </div>
             <div className="footer-bottom">
-                    <p>&copy; {currentYear} JVPC. All rights reserved.</p>
+                    <p>&copy; {currentYear} RBO. All rights reserved.</p>
             </div>
         </footer>
     );
