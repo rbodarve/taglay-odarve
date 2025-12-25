@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
-import logo from '../assets/the_pawradise_project_logo.svg';
+import logo from '../assets/RBO_Logo.png';
 import Button from './Button';
 function Navbar() {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Navbar() {
         <nav>
             <div className="logo">
                 <img src={logo} alt="Logo" />
-                <span>The Pawradise Project</span>
+                <span>Profile</span>
             </div>
             <ul>
                 <li>
