@@ -53,16 +53,21 @@ app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes);
 
 //Getting UI
-// if (process.env.NODE_ENV === "production") {
-//     const root = path.join(__dirname, '../robles-front-end/dist');
-//     app.use(express.static(root));
-//     app.all('/{*any}', (req, res, next) => {
-//         res.sendFile(path.join(root, 'index.html'));
-//     })
-//     // app.get('*', (req, res) => {
-//         // res.sendFile(path.join(root, 'index.html'));
-//     // });
-// }
+ if (process.env.NODE_ENV === "production") {
+     const root = path.join(__dirname, '../client/dist');
+     app.use(express.static(root));
+     app.all('/{*any}', (req, res, next) => {
+         res.sendFile(path.join(root, 'index.html'));
+     })
+      app.get('*', (req, res) => {
+          res.sendFile(path.join(root, 'index.html'));
+      });
+ }
+
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
+
 
 // Error Handling
 app.use((err, req, res, next) => {
