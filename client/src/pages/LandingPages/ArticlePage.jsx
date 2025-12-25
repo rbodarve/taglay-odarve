@@ -74,7 +74,7 @@ function ArticlePage() {
           <span className="minute-read">{minutes} min read</span>
         </div>
         <p className="lead">
-          Articles that help you understand and care for animals better.
+          Articles about goals accomplished.
         </p>
       </div>
 

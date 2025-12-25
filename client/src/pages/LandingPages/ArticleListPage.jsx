@@ -37,10 +37,10 @@ function ArticleListPage() {
   return (
     <div className="page">
       <div className="page-header">
-        <p className="eyebrow">Library</p>
-        <h1>Every stray dogs and cats has a story. This is where they are told.</h1>
+        <p className="eyebrow">Anecdotes</p>
+        <h1>Every goal accomplished has a story behind it.</h1>
         <p className="lead">
-          Discover stories, tips, and ways to help paws in need today.
+          Discover stories behind the goals for self improvement of Renaire.
         </p>
       </div>
 

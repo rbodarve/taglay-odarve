@@ -206,15 +206,15 @@
 }
 
 .feature-card:nth-child(1) .feature-icon::before {
-  content: '🐾';
+  content: '🧠';
 }
 
 .feature-card:nth-child(2) .feature-icon::before {
-  content: '💡';
+  content: '🌱';
 }
 
 .feature-card:nth-child(3) .feature-icon::before {
-  content: '❤️';
+  content: '📈';
 }
 
 .feature-card:hover .feature-icon {

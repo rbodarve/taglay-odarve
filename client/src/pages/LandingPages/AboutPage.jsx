@@ -16,25 +16,24 @@ function AboutPage() {
           <div className="feature-icon"></div>
           <h3>Self Improvement</h3>
           <p>
-            Many stray dogs are gentle and still trust people despite being left behind. 
-            The Pawradise Project shares their stories to help readers understand how to care, protect, 
-            and show kindness to dogs on the streets.
+            Understanding yourself is the first step to growth. Recognizing your strengths, weaknesses, 
+            habits, and patterns allows you to make better decisions and stay aligned with your goals.
           </p>
         </div>
         <div className="about-card">
           <div className="feature-icon"></div>
           <h3>Growth</h3>
           <p>
-            Stray cats live quietly and are easily ignored. Through simple guides and stories, 
-            The Pawradise Project helps people learn how to feed and help cats safely and responsibly.
+            Growth comes from taking small, consistent actions to improve daily. Reflecting on past 
+            experiences, learning new skills, and stepping out of your comfort zone all contribute to progress.
           </p>
         </div>
         <div className="about-card">
           <div className="feature-icon"></div>
           <h3>Progress</h3>
           <p>
-            The Pawradise Project is driven by compassion. You do not need to be an expert to help. 
-            Willingness to care, learn, and choose kindness for animals who have no home matters.
+            Progress isn’t always visible, but persistence matters. Tracking achievements, learning 
+            from setbacks, and staying motivated are key to continuous improvement over time.
           </p>
         </div>
       </div>
@@ -43,22 +42,22 @@ function AboutPage() {
         <div className="timeline-row">
           <strong>The Objective</strong>
           <p>
-            Pawradise started as a simple idea, to give stray dogs and cats a voice, 
-            and to help people see them not as a problem in the community, but as lives that matter.
+            This project started as a personal reminder to focus on self-awareness, self-improvement, 
+            and intentional living, keeping growth and learning at the center of every decision.
           </p>
         </div>
         <div className="timeline-row">
           <strong>The Progress</strong>
           <p>
-            This project supports animal care, rescue, and welfare, guided by compassion and 
-            aligned with the Republic Act No. 8485 of the Philippines, also known as the Animal Welfare Act of 1998.
+            Through consistent reflection, journaling, and habit tracking, I document the lessons learned, 
+            milestones achieved, and challenges overcome in the journey of personal growth.
           </p>
         </div>
         <div className="timeline-row">
           <strong>The End Goal</strong>
           <p>
-            The Pawradise Project just started as blog inspired 
-            by stray dogs and cats, aimed at awareness, compassion, and future action.
+            The ultimate aim is to cultivate a balanced, resilient, and mindful life where self-improvement 
+            becomes a continuous process, and personal growth is prioritized without losing perspective.
           </p>
         </div>
       </div>
@@ -66,8 +65,8 @@ function AboutPage() {
       <div className="cta-banner">
         <h3>Reminder</h3>
         <p>
-          Priority should be self improvement and growth above everyone else. 
-          Always learn to say no. Always look 360 degrees with every decision you make.
+          Focus on your personal growth above external pressures. Learn to set boundaries, make deliberate choices, 
+          and reflect on your decisions to move forward intentionally.
         </p>
       </div>
     </div>
