@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import articles from '../../article-content';
-import heroVideo from '../../assets/dog_cat_hero.mp4';
+import heroVideo from '../../assets/Dota_2_Logo.mp4';
 
 function HomePage() {
   const featuredArticles = articles.slice(0, 3);
