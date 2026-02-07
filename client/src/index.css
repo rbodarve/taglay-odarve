@@ -2,9 +2,9 @@
 
 :root {
   /* Primary Colors */
-  --color-primary: #61fbc2;
-  --color-primary-dark: #00d37f;
-  --color-primary-light: #95E8FF;
+  --color-primary: #FF5733;
+  --color-primary-dark: #C41E3A;
+  --color-primary-light: #FF8A80;
   --color-secondary: #F8F8F8;
   
   /* Text Colors */
@@ -26,7 +26,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(150% 100% at 30% 35%, #EFECE3 10%, #19c868 95%, #FDF5AA 100%);
+    radial-gradient(150% 100% at 30% 35%, #EFECE3 10%, #FF4500 95%, #FFB347 100%);
   color: var(--color-text-primary);
   font-family: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: 16px;
@@ -130,8 +130,8 @@ img {
   gap: px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: #e0f2fe;
-  color: #0ee98e;
+  background: #ffe4e1;
+  color: #C41E3A;
   font-weight: 600;
   font-size: 0.85rem;
 }
@@ -153,39 +153,39 @@ img {
 .button-link.primary {
   background: var(--color-primary-dark);
   color: var(--color-text-light);
-  box-shadow: 0 15px 30px rgba(97, 251, 207, 0.25);
+  box-shadow: 0 15px 30px rgba(196, 30, 58, 0.35);
 }
 
 .button-link.primary:hover {
   color: var(--color-text-primary);
-  box-shadow: 0 15px 32px rgba(0, 211, 158, 0.3);
+  box-shadow: 0 15px 32px rgba(255, 69, 0, 0.4);
 }
 
 .button-link.secondary {
   background: transparent;
   color: var(--color-primary-dark);
   border-color: var(--color-primary);
-  box-shadow: 0 15px 30px rgba(97, 251, 171, 0.25);
+  box-shadow: 0 15px 30px rgba(255, 87, 51, 0.25);
 }
 
 .button-link.secondary:hover {
-  background: rgba(17, 43, 50, 0.08);
+  background: rgba(255, 69, 0, 0.08);
   color: var(--color-text-secondary);
   border-color: var(--color-primary-dark);
-  box-shadow: 0 15px 32px rgba(0, 167, 211, 0.3);
+  box-shadow: 0 15px 32px rgba(196, 30, 58, 0.35);
 }
 
 .button-link.article-about {
-  background: #e9f3ff;
+  background: #ffe4e1;
   color: var(--color-primary-dark);
   border-color: var(--color-primary);
-  box-shadow: 0 15px 30px rgba(97, 219, 251, 0.25);
+  box-shadow: 0 15px 30px rgba(255, 87, 51, 0.25);
 }
 
 .button-link.article-about:hover {
   color: var(--color-text-secondary);
   border-color: var(--color-primary-dark);
-  box-shadow: 0 15px 32px rgba(0, 167, 211, 0.3);
+  box-shadow: 0 15px 32px rgba(196, 30, 58, 0.35);
 }
 
 .button-link:hover {
