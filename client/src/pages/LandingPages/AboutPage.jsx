@@ -5,9 +5,9 @@ function AboutPage() {
     <div className="page">
       <div className="page-header">
         <p className="eyebrow">About</p>
-        <h1>Personal Profile Project of Renaire Odarve.</h1>
+        <h1>The Dota 2 Journey of Renaire Odarve</h1>
         <p className="lead">
-          Self Improvement <br/> This pet project will be used as a reminder for self improvement and growth.
+          Strategy. Teamwork. Perseverance. <br/> A chronicle of lessons learned through thousands of hours in the most complex MOBA.
         </p>
       </div>
 
@@ -40,33 +40,34 @@ function AboutPage() {
 
       <div className="timeline">
         <div className="timeline-row">
-          <strong>The Objective</strong>
+          <strong>The Beginning</strong>
           <p>
-            This project started as a personal reminder to focus on self-awareness, self-improvement, 
-            and intentional living, keeping growth and learning at the center of every decision.
+            The journey started with a single game that seemed impossibly complex. Over 120 heroes, countless items, 
+            and mechanics that take years to master. The first matches were chaotic, confusing, and humbling.
           </p>
         </div>
         <div className="timeline-row">
-          <strong>The Progress</strong>
+          <strong>The Grind</strong>
           <p>
-            Through consistent reflection, journaling, and habit tracking, I document the lessons learned, 
-            milestones achieved, and challenges overcome in the journey of personal growth.
+            Thousands of hours spent learning heroes, watching replays, studying guides, and climbing ranked. 
+            Every game brought new lessons—map awareness, itemization, positioning, and how to work with teammates.
           </p>
         </div>
         <div className="timeline-row">
-          <strong>The End Goal</strong>
+          <strong>The Journey Continues</strong>
           <p>
-            The ultimate aim is to cultivate a balanced, resilient, and mindful life where self-improvement 
-            becomes a continuous process, and personal growth is prioritized without losing perspective.
+            Dota 2 is never truly mastered. Every patch changes the meta, new strategies emerge, and there's always 
+            room to improve. The goal isn't perfection—it's continuous growth and enjoying the challenge.
           </p>
         </div>
       </div>
 
       <div className="cta-banner">
-        <h3>Reminder</h3>
+        <h3>Why Document This?</h3>
         <p>
-          Focus on your personal growth above external pressures. Learn to set boundaries, make deliberate choices, 
-          and reflect on your decisions to move forward intentionally.
+          This project chronicles the highs and lows of playing Dota 2—the victories, defeats, lessons learned, 
+          and personal growth that comes from one of gaming's most challenging experiences. It's a reminder that 
+          every match, win or lose, is part of the journey.
         </p>
       </div>
     </div>

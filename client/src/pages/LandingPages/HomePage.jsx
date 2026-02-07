@@ -11,11 +11,11 @@ function HomePage() {
       <section className="hero">
         <div className="hero-container">
           <div className="hero-copy">
-            <p className="eyebrow">Self Improvement. Growth. Progress.</p>
-            <h1>Personal Project of Renaire Odarve</h1>
+            <p className="eyebrow">Strategy. Skill. Perseverance.</p>
+            <h1>Dota 2 Journey of Renaire Odarve</h1>
             <p className="lead">
-              Sharing progress of his self improvement journey to 
-              inspire others, while also helping himself for self improvement.
+              Documenting the climbing journey, lessons learned, and memorable moments 
+              from the world's most complex MOBA.
             </p>
             <div className="hero-actions">
               <Link to="/articles" className="button-link primary">
@@ -31,12 +31,12 @@ function HomePage() {
                 <span>Articles</span>
               </div>
               <div className="stat">
-                <strong>29%</strong>
-                <span>Progress</span>
+                <strong>2.5k+</strong>
+                <span>Hours Played</span>
               </div>
               <div className="stat">
-                <strong>9</strong>
-                <span>Goals still to accomplish</span>
+                <strong>120+</strong>
+                <span>Heroes Learned</span>
               </div>
             </div>
           </div>
@@ -56,29 +56,29 @@ function HomePage() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">Highlights</p>
-            <h2>Goals Accomplished</h2>
+            <h2>Major Milestones</h2>
           </div>
         </div>
         <div className="feature-grid">
           <div className="feature-card">
             <div className="feature-icon"></div>
-            <h3>Attend a Concert</h3>
+            <h3>First Ranked Calibration</h3>
             <p>
-              Able to go to a concert without help despite social anxiety.
+              Started from the bottom and embraced the grind. Every rank is earned through dedication and improvement.
             </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon"></div>
-            <h3>Go to a Mall</h3>
+            <h3>Mastered Support Role</h3>
             <p>
-              Able to go to a mall and walk alone without help despite social anxiety.
+              Found my calling in supporting the team. Ward placements, saves, and enabling carries became my specialty.
             </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon"></div>
-            <h3>None</h3>
+            <h3>Watched TI Live</h3>
             <p>
-              Need more goals to accomplish.
+              Experienced The International and witnessed the highest level of Dota 2 competition.
             </p>
           </div>
         </div>
@@ -87,8 +87,8 @@ function HomePage() {
         <section className="articles-section">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Articles</p>
-            <h2>Most reads</h2>
+            <p className="eyebrow">Journey Stories</p>
+            <h2>Featured Articles</h2>
           </div>
           <Link to="/articles" className="button-link primary">
             View all
