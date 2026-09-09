@@ -27,6 +27,9 @@ const createArticle = async (req, res) => {
 const updateArticle = async (req, res) => {
   try {
     const article = await Article.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!article) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
     res.json(article);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -36,6 +39,9 @@ const updateArticle = async (req, res) => {
 const toggleArticleStatus = async (req, res) => {
   try {
     const article = await Article.findById(req.params.id);
+    if (!article) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
     article.isActive = !article.isActive;
     await article.save();
     res.json(article);

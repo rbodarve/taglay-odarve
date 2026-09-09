@@ -6,7 +6,7 @@
 
 .article-card {
   position: relative;
-  padding: 18px;;
+  padding: 18px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   background: var(--color-secondary);

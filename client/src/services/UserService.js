@@ -6,6 +6,15 @@ const API = axios.create({
   baseURL: `${constants.HOST}/users`,
 });
 
+// Attach the stored JWT to every request
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 // Fetch users
 export const fetchUsers = (user) => API.get('/', user);
 

@@ -139,7 +139,7 @@
 }
 
 .main-content > section:last-of-type {
-  margin-bottom: 15;
+  margin-bottom: 15px;
 }
 
 /* Feature Section */
@@ -239,7 +239,7 @@
   padding: 18px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: var(--shadow);
+  background: var(--color-secondary);
   box-shadow: var(--shadow);
 }
 
@@ -249,7 +249,7 @@
 
 .article-body {
   display: grid;
-  gap: 16px;;
+  gap: 16px;
   padding: 22px 24px;
   border-radius: var(--radius);
   border: 1px solid var(--border);

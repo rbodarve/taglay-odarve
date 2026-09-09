@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchArticleByName } from '../../services/ArticleService';
 import NotFoundPage from '../NotFoundPage.jsx';
+import { getReadTime } from '../../utils/readTime';
 
 function ArticlePage() {
   const { name } = useParams();
@@ -62,8 +63,7 @@ function ArticlePage() {
       ? [article.content]
       : [];
 
-  const words = contentArray.join(' ').split(/\s+/).filter(Boolean).length;
-  const minutes = Math.max(2, Math.ceil(words / 70));
+  const minutes = getReadTime(contentArray);
 
   return (
     <div className="page article-page">

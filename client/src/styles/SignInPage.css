@@ -77,6 +77,17 @@
   background: #ffffff;
 }
 
+.auth-error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #ffe4e1;
+  border: 1px solid #f5b5ad;
+  color: #C41E3A;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .auth-submit {
   width: 100%;
   justify-content: center;

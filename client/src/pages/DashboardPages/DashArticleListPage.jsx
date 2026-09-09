@@ -116,20 +116,16 @@ function DashArticleListPage() {
   };
 
   const handleDeleteConfirm = async () => {
-  try {
-    console.log('Attempting to delete article with ID:', articleToDelete);
-    const response = await deleteArticle(articleToDelete);
-    console.log('Delete response:', response);
-    loadArticles();
-    setDeleteDialogOpen(false);
-    setArticleToDelete(null);
-  } catch (error) {
-    console.error('Error deleting article:', error);
-    console.error('Error response:', error.response?.data);
-    console.error('Error status:', error.response?.status);
-    alert(`Failed to delete article: ${error.response?.data?.message || error.message}`);
-  }
-};
+    try {
+      await deleteArticle(articleToDelete);
+      loadArticles();
+      setDeleteDialogOpen(false);
+      setArticleToDelete(null);
+    } catch (error) {
+      console.error('Error deleting article:', error);
+      alert(`Failed to delete article: ${error.response?.data?.message || error.message}`);
+    }
+  };
 
   const handleDeleteCancel = () => {
     setDeleteDialogOpen(false);
@@ -182,15 +178,17 @@ function DashArticleListPage() {
         </Button>
       </Stack>
 
-      <DataGrid
-        rows={articles}
-        columns={columns}
-        getRowId={(row) => row._id}
-        loading={loading}
-        pageSize={10}
-        rowsPerPageOptions={[10, 20, 50]}
-        disableSelectionOnClick
-      />
+      <Box sx={{ height: 500, width: '100%' }}>
+        <DataGrid
+          rows={articles}
+          columns={columns}
+          getRowId={(row) => row._id}
+          loading={loading}
+          initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
+          pageSizeOptions={[10, 20, 50]}
+          disableRowSelectionOnClick
+        />
+      </Box>
 
       <Modal open={open} onClose={handleClose}>
         <Box sx={modalStyle}>

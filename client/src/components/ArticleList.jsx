@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/ArticleList.css';
+import { getReadTime } from '../utils/readTime';
 
 function ArticleList({ articles }) {
   return (
     <div className="article-list">
       {articles.map((article) => {
-        const words = article.content.join(' ').split(' ').length;
-        const minutes = Math.max(2, Math.ceil(words / 70));
+        const content = Array.isArray(article.content) ? article.content : [];
+        const minutes = getReadTime(content);
+        const excerpt = content[0] ? `${content[0].substring(0, 140)}...` : '';
 
         return (
           <Link
@@ -20,7 +22,7 @@ function ArticleList({ articles }) {
               <span className="muted">{minutes} min read</span>
             </div>
             <h3>{article.title}</h3>
-            <p>{article.content[0].substring(0, 140)}...</p>
+            <p>{excerpt}</p>
           </Link>
         );
       })}

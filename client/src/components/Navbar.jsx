@@ -7,13 +7,13 @@ function Navbar() {
     const navigate = useNavigate();
 
     const handleLoginClick = () => {
-        navigate('auth/signin');
+        navigate('/auth/signin');
     };
     return (
         <nav>
             <div className="logo">
                 <img src={logo} alt="Logo" />
-                <span> PROJECT </span>
+                <span> Dota 2 Journey </span>
             </div>
             <ul>
                 <li>

@@ -15,7 +15,6 @@ const SignInPage = () => {
         try {
             // Call the login API
             const { data } = await loginUser({ email, password });
-            console.log('Login successful:', data);
 
             localStorage.setItem('token', data.token);
             localStorage.setItem('firstName', data.firstName);
@@ -64,6 +63,8 @@ const SignInPage = () => {
                             required
                         />
                     </label>
+
+                    {error && <p className="auth-error" role="alert">{error}</p>}
 
                     <button type="submit" className="button-link primary auth-submit">
                         Sign in

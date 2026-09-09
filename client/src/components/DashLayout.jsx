@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -25,7 +25,6 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import Button from "@mui/material/Button";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import ArticleIcon from "@mui/icons-material/Article";
-import logo from "../assets/react.svg";
 import { Stack } from "@mui/material";
 const drawerWidth = 240;
 
@@ -132,21 +131,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const getPageTitle = (pathname) => {
-  switch (pathname) {
-    // case "/dashboard":
-    //   return "Dashboard";
-    case "/dashboard/dash-articles":
-      return "Articles";
-    case "/dashboard/users":
-      return "Users";
-    // case "/dashboard/reports":
-    //   return "Reports";
-    default:
-      return "Welcome";
-  }
-};
-
 const DashLayout = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -154,7 +138,6 @@ const DashLayout = () => {
   const name =
     location.state?.firstName || localStorage.getItem("firstName") || "User";
   const userType = location.state?.type || localStorage.getItem("type");
-  const pageTitle = getPageTitle(location.pathname);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -166,8 +149,21 @@ const DashLayout = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("firstName");
+    localStorage.removeItem("type");
     navigate("/");
   };
+
+  // Guard: require a token to access the dashboard
+  if (!localStorage.getItem("token")) {
+    return <Navigate to="/auth/signin" replace />;
+  }
+
+  // Guard: user management is admin-only
+  if (location.pathname === "/dashboard/users" && userType !== "admin") {
+    return <Navigate to="/dashboard/dash-articles" replace />;
+  }
 
   return (
     <>
@@ -183,8 +179,7 @@ const DashLayout = () => {
               // onClick={(open)}
               onClick={open ? handleDrawerClose : handleDrawerOpen}
               edge="start"
-              // sx={{ marginRight: 5, ...(open && { display: 'none' }) }}
-              sx={{ marginRight: 5, ...open }}
+              sx={{ marginRight: 5 }}
             >
               {open ? <MenuOpenIcon /> : <MenuIcon />}
             </IconButton>

@@ -1,15 +1,10 @@
-# Taglay ng Alumni: From Mind to Machine
+# Dota 2 Journey of Renaire Odarve
 
-Event site for the From Mind to Machine alumni mentorship series. The app pairs a React + Vite front end with an Express + MongoDB API for user management and article-driven content.
-
-![From Mind to Machine event poster](client/public/images/alumni-event-cover.png)
-
-![Cyrus Robles — Resource Person](client/public/images/cyrus-robles.png)
+A personal blog documenting a Dota 2 climbing journey — lessons, strategy, and memorable moments. The app pairs a React + Vite front end with an Express + MongoDB API for user management and article-driven content.
 
 ## What's inside
-- `client/` React single-page app (home, about, articles, detail, 404).
+- `client/` React single-page app (home, about, articles, detail, 404) plus an admin dashboard for managing users and articles.
 - `server/` Express API for users and articles with JWT-based login.
-- `client/public/images/` Event poster and mentor portraits referenced by the UI.
 
 ## Requirements
 - Node 18+ and npm
@@ -27,11 +22,11 @@ Event site for the From Mind to Machine alumni mentorship series. The app pairs 
 1) Backend (API)
 - `cd server && npm install`
 - Start dev server: `npm run dev` (or `npm start` for plain node)
-- API surface:
-  - `GET/POST /api/users`, `PUT/DELETE /api/users/:id`
-  - `POST /api/users/login` (returns JWT, enforces active users)
-  - `GET /api/articles`, `GET /api/articles/:name`
-  - `POST /api/articles`, `PUT /api/articles/:id`, `PATCH /api/articles/:id/toggle`
+- API surface (routes marked 🔒 require a `Authorization: Bearer <token>` header):
+  - `POST /api/users/login` (public — returns JWT, enforces active users)
+  - 🔒 `GET/POST /api/users`, `PUT/DELETE /api/users/:id`
+  - `GET /api/articles`, `GET /api/articles/:name` (public reads)
+  - 🔒 `POST /api/articles`, `PUT /api/articles/:id`, `PATCH /api/articles/:id/toggle`, `DELETE /api/articles/:id`
 
 2) Frontend (Vite)
 - `cd client && npm install`
