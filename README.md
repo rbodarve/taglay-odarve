@@ -18,6 +18,10 @@ memorable moments — with an admin dashboard for managing its content.
 
 - [About](#about)
   - [Built With](#built-with)
+- [Architecture](#architecture)
+  - [Request Flow](#request-flow)
+  - [Client Structure](#client-structure)
+  - [Server Structure](#server-structure)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -55,6 +59,72 @@ user accounts.
   [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken),
   [bcryptjs](https://github.com/dcodeIO/bcrypt.js)
 - **Database:** [MongoDB](https://www.mongodb.com/) (local or Atlas)
+
+## Architecture
+
+The diagrams below summarize [`project.drawio`](project.drawio). Open that file
+in [draw.io](https://app.diagrams.net/) or the VS Code Draw.io extension for the
+full version.
+
+### Request Flow
+
+```text
+ Browser ──► client (React SPA)          taglay.vercel.app
+               │  req: Axios + JWT       ▲  res: JSON
+               ▼                         │
+             API (Express)                taglay-server.vercel.app
+               │  /api/articles, /api/users
+               │  req                    ▲  res
+               ▼                         │
+             DATABASE (MongoDB via Mongoose)
+```
+
+The client builds every API URL from `VITE_LOCAL_HOST` plus `/api`
+(`client/src/constants.js`).
+
+### Client Structure
+
+Each layout is a route group in `client/src/App.jsx`:
+
+```text
+App.jsx
+├── Layout              /                (Navbar + Footer)
+│   ├── HomePage        /
+│   ├── AboutPage       /about
+│   ├── ArticleListPage /articles        → ArticleList component
+│   └── ArticlePage     /articles/:name
+├── AuthLayout          /auth
+│   └── SignInPage      /auth/signin     → UserService.loginUser
+└── DashLayout          /dashboard       (reached after sign-in)
+    ├── UserListPage        /dashboard/users          → UserService (CRUD)
+    └── DashArticleListPage /dashboard/dash-articles  → ArticleService (CRUD)
+```
+
+- Both dashboard pages render their table with MUI `DataGrid` inside the page
+  file. No separate table component exists.
+- `client/src/services/` holds the two API modules: `ArticleService.js` and
+  `UserService.js`.
+- Other client files:
+  - `components/`: `Navbar`, `Footer`, `Button`.
+  - `pages/NotFoundPage.jsx`: the 404 page.
+  - `utils/readTime.js`: the reading-time helper.
+  - `article-content.js`: the seed articles.
+
+### Server Structure
+
+A request passes through these layers, from left to right:
+
+```text
+index.js ──► routes/ ──► middleware/auth.js ──► controllers/ ──► models/ ──► MongoDB
+  │          articleRoutes.js   protect,         articleController.js  Article.js
+  │          userRoutes.js      requireAdmin     userController.js     User.js
+  └── config/db.js (opens the Mongoose connection)
+```
+
+- `middleware/auth.js` exports `protect` (valid JWT required) and `requireAdmin`
+  (admin role required).
+- `vercel.json` sends every request to `index.js` when the server runs on
+  Vercel.
 
 ## Getting Started
 
@@ -101,7 +171,10 @@ Create a `.env` file in each package (both are git-ignored).
 
 | Variable          | Required | Description                                          |
 | ----------------- | -------- | ---------------------------------------------------- |
-| `VITE_LOCAL_HOST` | Yes      | Base URL of the API, e.g. `http://localhost:5000`.   |
+| `VITE_LOCAL_HOST` | Yes      | Base URL of the API, e.g. `http://localhost:8000`.   |
+
+> The port in `VITE_LOCAL_HOST` must match the server's `PORT`. Without `PORT`,
+> the server uses `8000`. Do not add `/api`; the client appends it.
 
 ## Usage
 
@@ -146,6 +219,16 @@ requires an admin account.
       temporary).
 - [ ] Surface API errors in the dashboard UI (beyond console logging).
 - [ ] Add automated tests for the API and React components.
+- [ ] Remove the client dependencies that no file uses: `@mui/x-charts`,
+      `@mui/x-data-grid-generator`, `@toolpad/core`, `dotenv` and
+      `react-fontawesome`. Vite reads `import.meta.env` without `dotenv`.
+- [ ] Move the shared Axios client and JWT interceptor into one module
+      (`client/src/services/api.js`), so the two services do not repeat it.
+- [ ] Replace the CORS options object with `cors()`, because its defaults already
+      allow any origin and return 204 on preflight.
+- [ ] Remove `body-parser` from `server/index.js`. `express.json()` and
+      `express.urlencoded()` do the same job.
+- [ ] Fix the vulnerabilities that `npm audit` reports in `client/`.
 
 See the [open issues](https://github.com/rbodarve/taglay-odarve/issues) for a full
 list of proposed features and known issues.
