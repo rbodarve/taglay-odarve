@@ -2,8 +2,9 @@
 
 # Dota 2 Journey of Renaire Odarve
 
-A personal blog documenting a Dota 2 climbing journey — lessons, strategy, and
-memorable moments — with an admin dashboard for managing its content.
+A web development coursework project: a personal blog documenting a Dota 2
+climbing journey — lessons, strategy, and memorable moments — with an admin
+dashboard for managing its content.
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
@@ -39,10 +40,16 @@ memorable moments — with an admin dashboard for managing its content.
 
 ## About
 
-This is a full-stack personal project built around a Dota 2 climbing journey. The
-public site presents a home page, an about page, and a collection of articles; a
-protected admin dashboard lets authorized users manage articles and (for admins)
-user accounts.
+This is a full-stack web coursework project. It starts from the
+[`taglay`](https://github.com/cyrusrobles18/taglay) starter repository by
+[Cyrus Robles](https://github.com/cyrusrobles18). The starter is an event site
+for the "From Mind to Machine" alumni mentorship series. It provides a React +
+Vite client and an Express + MongoDB API with JWT login.
+
+This version adapts the starter into a personal blog about a Dota 2 climbing
+journey. The public site presents a home page, an about page, and a collection
+of articles; a protected admin dashboard lets authorized users manage articles
+and (for admins) user accounts.
 
 - **`client/`** — React single-page app: home, about, article list, article
   detail, and a 404 page, plus an authenticated admin dashboard.
@@ -69,10 +76,10 @@ full version.
 ### Request Flow
 
 ```text
- Browser ──► client (React SPA)          taglay.vercel.app
+ Browser ──► client (React SPA)          taglay-odarve.vercel.app
                │  req: Axios + JWT       ▲  res: JSON
                ▼                         │
-             API (Express)                taglay-server.vercel.app
+             API (Express)                (not deployed yet)
                │  /api/articles, /api/users
                │  req                    ▲  res
                ▼                         │
@@ -258,6 +265,9 @@ standalone `LICENSE` file is currently included in the repository.
 
 ## Acknowledgements
 
+- The client/server base comes from the
+  [`taglay`](https://github.com/cyrusrobles18/taglay) coursework starter by
+  [Cyrus Robles](https://github.com/cyrusrobles18).
 - This README's structure is based on the
   [Amazing GitHub Template](https://github.com/dec0dOS/amazing-github-template)
   by [dec0dOS](https://github.com/dec0dOS) (MIT License).
