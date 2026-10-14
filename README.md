@@ -258,6 +258,154 @@ list of proposed features and known issues.
   environment variables on the host (these are **not** read from a committed
   `.env`). Point the frontend's `VITE_LOCAL_HOST` at the deployed API URL.
 
+## Review notes (2026-10-14)
+
+A code review and an API simulation found the issues below. No code was changed.
+
+### Known issues
+
+**High**
+
+- E1 — NoSQL operator injection in login: `email` goes into `findOne` without a
+  type check. The `urlencoded` parser is a second path.
+  (`server/controllers/userController.js:68-71`, `server/index.js:29`)
+
+**Medium**
+
+- E2 — Login without a string `password`, or with an empty body, returns 500
+  instead of 400. (`server/controllers/userController.js:68`, `:82`)
+- E3 — Login reveals which emails exist: 404 unknown email, 403 inactive (before
+  the password check), 401 wrong password.
+  (`server/controllers/userController.js:72-85`)
+- E4 — Updates run without validators and accept the raw body, so enum and
+  `required` rules are not enforced.
+  (`server/controllers/userController.js:44`, `server/controllers/articleController.js:29`)
+- E5 — The JWT is trusted for 1 h without a database check. A deactivated,
+  demoted or deleted user keeps access until expiry. (`server/middleware/auth.js:13`)
+- E6 — Catch blocks send raw Mongoose/MongoDB error text to the client.
+  (e.g. `server/controllers/userController.js:53`, `server/controllers/articleController.js:23`)
+- E7 — The error handler ignores `err.status`: malformed JSON returns 500
+  instead of 400. (`server/index.js:46-49`)
+- C1 — The add-user form shows Type "Viewer" but sends no `type`; the server
+  stores `editor`. (`client/src/pages/DashboardPages/UserListPage.jsx:279`)
+- C2 — The dashboard guard checks only that a token exists. After expiry, the
+  dashboard renders with empty grids and no redirect.
+  (`client/src/components/DashLayout.jsx:158-159`) (from reading the code)
+- C3 — Save errors go only to `console.error`; the modal stays open with no
+  message. (`client/src/pages/DashboardPages/UserListPage.jsx:96-114`,
+  `client/src/pages/DashboardPages/DashArticleListPage.jsx:90-102`) (from reading the code)
+- C4 — Home-page featured articles and the count come from static
+  `article-content.js`, not the API. (`client/src/pages/LandingPages/HomePage.jsx:3`, `:30`, `:98-105`)
+
+**Low**
+
+- E8 — `deleteUser` returns 200 when no user matched, and an admin can delete
+  itself or the last admin. (`server/controllers/userController.js:57-64`)
+- E9 — Any non-empty password is accepted; login has no rate limit.
+  (`server/controllers/userController.js:17`, `:38`)
+- E10 — `content: [""]` passes `required`, so an article can have no text.
+  (`server/models/Article.js:6`)
+- E11 — `User.create({ ...req.body })` accepts any field (admin-only route).
+  (`server/controllers/userController.js:25`)
+- E13 — JSON is parsed twice, and `urlencoded` with `extended: true` enables E1
+  through form bodies. (`server/index.js:25-29`)
+- C5 — Edit sends the whole row (`_id`, `__v`, stale `isActive`) back; with E4
+  this overwrites a newer toggle.
+  (`client/src/pages/DashboardPages/DashArticleListPage.jsx:80-83`) (from reading the code)
+- C6 — The article `name` is not URL-encoded. (`client/src/services/ArticleService.js:18`)
+- C7 — An unset `VITE_LOCAL_HOST` gives the base URL `"undefined/api"`.
+  (`client/src/constants.js:1`)
+- C8 — `fetchUsers(user)` passes its argument as the axios config; no caller
+  passes one today. (`client/src/services/UserService.js:19`)
+- C9 — The Login button shows when signed in; there is no link back to the
+  dashboard. (`client/src/components/Navbar.jsx:29`)
+- C10 — No fetch cancellation on fast navigation; `/dashboard/users/` (trailing
+  slash) skips the client admin redirect (the server still returns 403); an admin
+  can deactivate itself. (`client/src/pages/LandingPages/ArticlePage.jsx:13-38`,
+  `client/src/components/DashLayout.jsx:164`,
+  `client/src/pages/DashboardPages/UserListPage.jsx:116-123`) (from reading the code)
+- C11 — The JWT is stored in `localStorage`, so any XSS can read it. No
+  `dangerouslySetInnerHTML` is used. (`client/src/pages/SignInPage.jsx:19-21`) (from reading the code)
+
+**Info**
+
+- E14 — Public `GET /api/articles` also returns inactive articles with full
+  content. This matches "List all articles" above, but the toggle hides nothing
+  from the API. (`server/controllers/articleController.js:5`)
+
+### Setup note
+
+If `MONGO_URI` names no database, Mongoose uses the database `test`. Documents
+created outside this app may lack `isActive` and `type`. Mongoose fills missing
+fields with schema defaults when it loads a document, so such users log in as
+active editors. Unless a document has `type: "admin"`, no user is an admin, so
+`/api/users` and the user dashboard are unreachable. Defaults do not apply to query filters, so
+`GET /api/articles/:name` returns 404 for every such article
+(`server/controllers/articleController.js:55`). Fix: name a database in the URI,
+or backfill `isActive: true` on all documents and set `type: "admin"` on one user.
+
+### Design note
+
+Any logged-in user, including a `viewer`, may create, edit and delete articles.
+The `viewer` role has no effect on the server.
+
+### Suggested fixes (not applied)
+
+- E1, E13: return 400 when `email` or `password` is not a string
+  (`server/controllers/userController.js:68`); remove `bodyParser.urlencoded`
+  (`server/index.js:29`).
+- E2, E3: the same type check; return one 401 "Invalid credentials" for an
+  unknown email, a wrong password and (after the password check) an inactive user.
+- E4: use `{ new: true, runValidators: true }` and a field whitelist
+  (`server/controllers/userController.js:44`, `server/controllers/articleController.js:29`).
+- E5: in `protect`, load the user, reject it if missing or inactive, and take
+  `type` from the database.
+- E6, E7: send `{ message: 'Invalid request' }` with 400 from catch blocks and
+  log the detail; use `res.status(err.status || 500)` in the error handler.
+- E8: return 404 when no user matched (`server/controllers/userController.js:59`);
+  refuse when `req.params.id === req.user.id`.
+- E9: add a minimum password length. E10: validate `content` with
+  `v => v.some(s => s.trim())`.
+
+### Simplification ideas
+
+Items already listed in the [Roadmap](#roadmap) are not repeated here.
+
+- Render the nine repeated user-form field blocks from one array
+  (`client/src/pages/DashboardPages/UserListPage.jsx:198-311`).
+- Remove the dashboard search box: it has no state and filters nothing
+  (`client/src/components/DashLayout.jsx:14-15`, `:95-132`, `:195-204`).
+- Replace `isEditing` plus the edit-id state with `const isEditing = editId !== null`
+  (`client/src/pages/DashboardPages/UserListPage.jsx:30-31`,
+  `client/src/pages/DashboardPages/DashArticleListPage.jsx:36-37`).
+- Remove the unused imports `Paper`, `InputAdornment` and `Input`
+  (`client/src/pages/DashboardPages/UserListPage.jsx:6-7`).
+- Remove `client/src/assets/react.svg` (4126 bytes, not referenced).
+- Remove the empty fragments in `client/src/components/AuthLayout.jsx:5-9` and
+  `client/src/App.jsx:82-84`.
+- Drop the empty options object in `mongoose.connect` (`server/config/db.js:6-7`).
+- Drop the `mongoose.models.User ||` guard; nodemon restarts the whole process
+  (`server/models/User.js:17`).
+
+### Tested
+
+The real server ran on a local throwaway MongoDB database with fixture users and
+articles.
+
+- 33 targeted API requests: 14 pass, 19 fail.
+- 2 × 300 random API requests (seeds 42 and 7): 28 and 35 failures. All are
+  raw database error text (E6) or 500 on a bad login body (E2). No response
+  leaked a password hash, no protected route accepted a missing or bad token, no
+  editor reached `/api/users`, and no junk login returned a token.
+
+### Not tested
+
+- The client UI in a browser.
+- Vercel deployment (E12: `server/index.js` exports no handler; whether Vercel needs one is unverified).
+- JWT expiry after 1 h.
+- Concurrency.
+- `npm audit`.
+
 ## License
 
 Distributed under the ISC License (as declared in `server/package.json`). No
