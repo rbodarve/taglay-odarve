@@ -235,7 +235,8 @@ requires an admin account.
       allow any origin and return 204 on preflight.
 - [ ] Remove `body-parser` from `server/index.js`. `express.json()` and
       `express.urlencoded()` do the same job.
-- [ ] Fix the vulnerabilities that `npm audit` reports in `client/`.
+- [ ] Fix the vulnerabilities that `npm audit` reports in `client/` and `server/`
+      (see [npm audit](#npm-audit-2026-10-14)).
 
 See the [open issues](https://github.com/rbodarve/taglay-odarve/issues) for a full
 list of proposed features and known issues.
@@ -398,13 +399,31 @@ articles.
   leaked a password hash, no protected route accepted a missing or bad token, no
   editor reached `/api/users`, and no junk login returned a token.
 
+### npm audit (2026-10-14)
+
+`npm audit` (npm 11.16.0) against the committed lockfiles. Nothing was fixed:
+this is coursework, so only this README changes.
+
+| Folder | Total | Critical | High | Moderate | Low |
+|---|---|---|---|---|---|
+| `client/` | 30 | 0 | 18 | 11 | 1 |
+| `server/` | 8 | 1 | 5 | 1 | 1 |
+
+- `server/`: the critical one is `proxy-addr` (via Express). `mongoose`,
+  `path-to-regexp`, `body-parser` and `qs` also have a plain `npm audit fix`.
+- `server/`: `braces` (high, via `nodemon`) only has `npm audit fix --force`.
+  That installs `nodemon@1.14.10`, a breaking downgrade. Do not use `--force`.
+- `client/`: 23 of 24 packages (for example `axios`, `form-data`, `lodash`)
+  have a plain `npm audit fix`. Only `yaml` needs `--force`, which installs
+  `@toolpad/core@0.1.55`, a breaking change.
+
 ### Not tested
 
 - The client UI in a browser.
 - Vercel deployment (E12: `server/index.js` exports no handler; whether Vercel needs one is unverified).
 - JWT expiry after 1 h.
 - Concurrency.
-- `npm audit`.
+- Whether `npm audit fix` (without `--force`) keeps the app working.
 
 ## License
 
